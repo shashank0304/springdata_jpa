@@ -22,7 +22,15 @@ class CrudOperationsApplicationTests {
 		product.setDesc("Apple IPad");
 		product.setPrice(30800d);
 		
-		repos.save(product);
+		//repos.save(product);
+		
+	}
+	
+	@Test
+	public void readProduct() {
+		
+		Product product = repos.findById("1").get();
+		System.out.println(product.getDesc());
 		
 	}
 
