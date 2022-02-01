@@ -1,5 +1,8 @@
 package com.ssangu.springjpa.crudoperations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,18 +23,47 @@ class CrudOperationsApplicationTests {
 		product.setId("1");
 		product.setName("Ipad");
 		product.setDesc("Apple IPad");
-		product.setPrice(30800d);
+		product.setPrice(30900d);
 		
-		//repos.save(product);
+		repos.save(product);
 		
 	}
 	
 	@Test
-	public void readProduct() {
+	public void testReadProduct() {
 		
 		Product product = repos.findById("1").get();
-		System.out.println(product.getDesc());
+		assertNotNull(product);
+		assertEquals("Ipad", product.getName());
 		
+	}
+	
+	@Test
+	public void testUpdateProduct() {
+		
+		Product product = repos.findById("1").get();
+		product.setPrice(30900d);
+		repos.save(product);
+	}
+	
+	@Test
+	public void testDeleteProduct() {
+		
+		if(repos.existsById("1")) {
+			repos.deleteById("1");
+		}
+	}
+	
+	@Test
+	public void testExistsProduct() {
+		
+		assertEquals(true, repos.existsById("1"));
+	}
+	
+	@Test
+	public void testCount() {
+		
+		System.out.println("Total Items:>>>>>>>>>>>>>>>>>>>>>>>>>"+repos.count());
 	}
 
 }
