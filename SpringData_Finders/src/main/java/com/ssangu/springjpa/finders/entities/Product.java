@@ -7,8 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "product_finders")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Product {
 	
 	@Id
